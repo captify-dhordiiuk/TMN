@@ -32,22 +32,24 @@ def prepare_device(n_gpu_use, logger):
 
 def main(config, args_outer):
     # Load new taxons and normalize embeddings if needed
-    vocab = []
-    nf = []
-    with open(args_outer.taxon, 'r') as fin:
-        for line in fin:
-            line = line.strip()
-            if line:
-                segs = line.split("\t")
-                vocab.append("_".join(segs[0].split(" ")))
-                nf.append([float(ele) for ele in segs[1].split(" ")])
-            
-    nf = np.array(nf)
-    if config['train_data_loader']['args']['normalize_embed']:
-        row_sums = nf.sum(axis=1)
-        nf = nf / row_sums[:, np.newaxis]
-    kv = KeyedVectors(vector_size=nf.shape[1])
-    kv.add_vectors(vocab, nf)
+
+    # vocab = []
+    # nf = []
+    # with open(args_outer.taxon, 'r') as fin:
+    #     for line in fin:
+    #         line = line.strip()
+    #         if line:
+    #             segs = line.split("\t")
+    #             vocab.append("_".join(segs[0].split(" ")))
+    #             nf.append([float(ele) for ele in segs[1].split(" ")])
+    #
+    # nf = np.array(nf)
+    # if config['train_data_loader']['args']['normalize_embed']:
+    #     row_sums = nf.sum(axis=1)
+    #     nf = nf / row_sums[:, np.newaxis]
+    # kv = KeyedVectors(vector_size=nf.shape[1])
+    # kv.add_vectors(vocab, nf)
+    kv = KeyedVectors.load(args_outer.taxon)
 
     # Load trained model and existing taxonomy
     mode = config['mode']
