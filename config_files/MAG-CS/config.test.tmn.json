@@ -1,7 +1,7 @@
 {
     "name": "MatchModel",
     "n_gpu": 1,
-    "data_path": "alexa_tax/alexa_tax.pickle.bin",
+    "data_path": "captify_tax/captify_tax.pickle.bin",
     "mode": "r",
     "arch": {
         "type": "MatchModel",
