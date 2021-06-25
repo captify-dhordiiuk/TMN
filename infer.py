@@ -50,11 +50,13 @@ def main(config, args_outer):
     # kv = KeyedVectors(vector_size=nf.shape[1])
     # kv.add_vectors(vocab, nf)
     kv = KeyedVectors.load(args_outer.taxon)
-
     # Load trained model and existing taxonomy
+    print('Load trained model and existing taxonomy')
     mode = config['mode']
     logger = config.get_logger('test')
     torch.multiprocessing.set_sharing_strategy('file_system')
+
+    print('Load test data')
     test_data_loader = module_data.UnifiedDataLoader(
         mode=mode,
         data_path=config['data_path'],
@@ -72,6 +74,7 @@ def main(config, args_outer):
     test_dataset = test_data_loader.dataset
     indice2word = test_dataset.vocab
 
+    print('Build model architecture')
     # build model architecture
     model = config.initialize('arch', module_arch, mode)
     node_features = test_dataset.node_features
