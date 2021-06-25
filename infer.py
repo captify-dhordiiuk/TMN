@@ -50,6 +50,7 @@ def main(config, args_outer):
     # kv = KeyedVectors(vector_size=nf.shape[1])
     # kv.add_vectors(vocab, nf)
     kv = KeyedVectors.load(args_outer.taxon)
+    vocab = kv.index_to_key
     # Load trained model and existing taxonomy
     print('Load trained model and existing taxonomy')
     mode = config['mode']
